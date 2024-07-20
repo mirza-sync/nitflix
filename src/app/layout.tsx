@@ -1,18 +1,14 @@
-"use client";
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryProvider } from "@/lib/ReactQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata: Metadata = {
-//   title: "Nitflix",
-//   description: "Netflix 2.0 made with NextJS",
-// };
-
-const queryClient = new QueryClient();
+export const metadata: Metadata = {
+  title: "Nitflix",
+  description: "Netflix 2.0 made with NextJS",
+};
 
 export default function RootLayout({
   children,
@@ -20,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ReactQueryProvider>
       <html lang="en">
         <body className={inter.className}>{children}</body>
       </html>
-    </QueryClientProvider>
+    </ReactQueryProvider>
   );
 }
