@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:api": "openapi-ts -i path/to/openapi.json -o src/client",
+    "generate:test": "openapi-ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.51.11",
@@ -16,6 +18,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "^0.50.0",
     "@tanstack/eslint-plugin-query": "^5.51.12",
     "@types/node": "^20",
     "@types/react": "^18",
