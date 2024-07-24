@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TrendingAllResponse, trendingAll } from "../../api-codegen";
 import { axiosClient } from "@/lib/axios";
+import { TMDB_IMAGE_BASE_URL } from "@/constants";
 
 type Movie = NonNullable<TrendingAllResponse["results"]>[number] & {
   name?: string;
@@ -64,8 +65,8 @@ export default function Home() {
               randomMovie.original_name}
           </h1>
           <Image
-            src={`http://image.tmdb.org/t/p/original/${randomMovie.backdrop_path}`}
-            alt={""}
+            src={TMDB_IMAGE_BASE_URL + randomMovie.backdrop_path}
+            alt={"Large movie backdrop"}
             width={800}
             height={600}
           />
