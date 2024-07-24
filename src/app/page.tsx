@@ -1,29 +1,13 @@
 "use client";
 
-import axios from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { TrendingAllResponse, trendingAll } from "../../api-codegen";
+import { axiosClient } from "@/lib/axios";
 
-type Movie = {
-  id: number;
-  backdrop_path: string;
-  title?: string;
-  original_title?: string;
-  name?: string;
-  overview: string;
-  poster_path: string;
-  media_type: string;
-  adult: boolean;
-  original_language: string;
-  genre_ids: number[];
-  popularity: number;
-  release_date: string;
-  video: number;
-  vote_average: number;
-  vote_count: number;
-};
+type Movie = NonNullable<TrendingAllResponse["results"]>[number];
 
 export default function Home() {
   const {
@@ -32,12 +16,15 @@ export default function Home() {
     isError,
     error,
   } = useQuery({
-    queryKey: ["get-movie"],
+    queryKey: ["trending-all", "day"],
     queryFn: async () => {
       try {
-        const res = await axios.get(
-          `/trending/all/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
-        );
+        const res = await trendingAll({
+          client: axiosClient,
+          path: {
+            time_window: "day",
+          },
+        });
         return res.data;
       } catch (error) {
         if (error instanceof AxiosError) {
@@ -51,10 +38,12 @@ export default function Home() {
   const [randomMovie, setRandomMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
-    if (movie) {
-      const randomNumber = Math.floor(Math.random() * movie.results.length - 1);
+    if (movie?.results) {
+      const randomNumber = Math.floor(
+        Math.random() * movie.results!.length - 1,
+      );
+      console.log("randomMovie", movie.results[randomNumber]);
       setRandomMovie(movie?.results[randomNumber]);
-      console.log("selectedMovie", movie.results[randomNumber], randomNumber);
     }
   }, [movie]);
 
@@ -65,11 +54,7 @@ export default function Home() {
     <>
       {randomMovie ? (
         <div className="flex flex-col justify-center align-middle">
-          <h1>
-            {randomMovie.title ||
-              randomMovie.name ||
-              randomMovie.original_title}
-          </h1>
+          <h1>{randomMovie.title || randomMovie.original_title}</h1>
           <Image
             src={`http://image.tmdb.org/t/p/original/${randomMovie.backdrop_path}`}
             alt={""}
