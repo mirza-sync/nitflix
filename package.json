@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:api": "openapi-ts -i path/to/openapi.json -o src/client",
-    "generate:test": "openapi-ts"
+    "generate:api": "openapi-ts"
   },
   "dependencies": {
+    "@hey-api/client-axios": "^0.1.0",
     "@tanstack/react-query": "^5.51.11",
     "axios": "^1.7.2",
     "next": "14.2.5",

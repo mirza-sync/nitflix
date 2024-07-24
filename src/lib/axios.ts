@@ -1,7 +1,8 @@
-import axios from "axios";
+import { createClient } from "@hey-api/client-axios";
 
-const axiosInstance = axios.create({
-  baseURL: "https://api.themoviedb.org/3",
+export const axiosClient = createClient({
+  baseURL: "https://api.themoviedb.org",
+  headers: {
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
+  },
 });
-
-export default axiosInstance;
