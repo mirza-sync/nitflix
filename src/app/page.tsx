@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { paths } from "../../api-codegen/schema";
 
 type Movie = {
   id: number;
@@ -24,6 +25,8 @@ type Movie = {
   vote_average: number;
   vote_count: number;
 };
+
+type endpoint = paths["/3/account/{account_id}"]["parameters"]["query"];
 
 export default function Home() {
   const {
