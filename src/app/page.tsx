@@ -7,7 +7,10 @@ import { useEffect, useState } from "react";
 import { TrendingAllResponse, trendingAll } from "../../api-codegen";
 import { axiosClient } from "@/lib/axios";
 
-type Movie = NonNullable<TrendingAllResponse["results"]>[number];
+type Movie = NonNullable<TrendingAllResponse["results"]>[number] & {
+  name?: string;
+  original_name?: string;
+};
 
 export default function Home() {
   const {
@@ -53,8 +56,13 @@ export default function Home() {
   return (
     <>
       {randomMovie ? (
-        <div className="flex flex-col justify-center align-middle">
-          <h1>{randomMovie.title || randomMovie.original_title}</h1>
+        <div className="flex h-full flex-col items-center">
+          <h1 className="text-4xl font-bold text-white">
+            {randomMovie.title ||
+              randomMovie.original_title ||
+              randomMovie.name ||
+              randomMovie.original_name}
+          </h1>
           <Image
             src={`http://image.tmdb.org/t/p/original/${randomMovie.backdrop_path}`}
             alt={""}
