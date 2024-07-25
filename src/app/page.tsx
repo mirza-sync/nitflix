@@ -34,7 +34,7 @@ export default function Home() {
         if (error instanceof AxiosError) {
           throw new Error(error.message);
         } else {
-          throw new Error("Server error");
+          throw new Error("Unknown error");
         }
       }
     },
@@ -57,19 +57,23 @@ export default function Home() {
   return (
     <>
       {randomMovie ? (
-        <div className="flex h-full flex-col items-center">
-          <h1 className="text-4xl font-bold text-white">
-            {randomMovie.title ||
-              randomMovie.original_title ||
-              randomMovie.name ||
-              randomMovie.original_name}
-          </h1>
+        <div className="relative h-full">
           <Image
             src={TMDB_IMAGE_BASE_URL + randomMovie.backdrop_path}
             alt={"Large movie backdrop"}
-            width={800}
-            height={600}
+            priority
+            fill
+            style={{ objectFit: "cover" }}
           />
+          <div className="absolute bottom-0 left-0 flex w-1/2 flex-col p-12 text-white">
+            <h1 className="text-4xl font-bold text-white">
+              {randomMovie.title ||
+                randomMovie.original_title ||
+                randomMovie.name ||
+                randomMovie.original_name}
+            </h1>
+            <p>{randomMovie.overview}</p>
+          </div>
         </div>
       ) : (
         <p>Movie not found!</p>
