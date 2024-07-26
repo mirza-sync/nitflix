@@ -1,27 +1,27 @@
-// Retrieved from genreMovieList endpoint
-export enum GENRE {
-  Action = 28,
-  Adventure = 12,
-  Animation = 16,
-  Comedy = 35,
-  Crime = 80,
-  Documentary = 99,
-  Drama = 18,
-  Family = 10751,
-  Fantasy = 14,
-  History = 36,
-  Horror = 27,
-  Music = 10402,
-  Mystery = 9648,
-  Romance = 10749,
-  ScienceFiction = 878,
-  TVMovie = 10770,
-  Thriller = 53,
-  War = 10752,
-  Western = 37,
-}
-
 export const TMDB_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original";
+
+// Retrieved from genreMovieList endpoint
+export const GENRE = {
+  Action: { id: 28, name: "Action" },
+  Adventure: { id: 12, name: "Adventure" },
+  Animation: { id: 16, name: "Animation" },
+  Comedy: { id: 35, name: "Comedy" },
+  Crime: { id: 80, name: "Crime" },
+  Documentary: { id: 99, name: "Documentary" },
+  Drama: { id: 18, name: "Drama" },
+  Family: { id: 10751, name: "Family" },
+  Fantasy: { id: 14, name: "Fantasy" },
+  History: { id: 36, name: "History" },
+  Horror: { id: 27, name: "Horror" },
+  Music: { id: 10402, name: "Music" },
+  Mystery: { id: 9648, name: "Mystery" },
+  Romance: { id: 10749, name: "Romance" },
+  ScienceFiction: { id: 878, name: "Sci-Fi" },
+  TVMovie: { id: 10770, name: "TV Movie" },
+  Thriller: { id: 53, name: "Thriller" },
+  War: { id: 10752, name: "War" },
+  Western: { id: 37, name: "Western" },
+};
 
 export type Movie = {
   adult?: boolean;
