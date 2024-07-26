@@ -27,6 +27,6 @@ A Netflix clone made with Next.js.
     type Movie = TrendingMovies['results'] extends Array<infer U> ? U : never;
     ```
 
-    - ☝️ I was mind-blown. Didn't know TS can do this!
+    - ☝️ I was mind-blown. Didn't know TS can do this! (But in the end I still created the `Movie` type myself because exporting the `TrendingAllResponse` to other components that have nothing to do with `TrendingAllResponse` sounds like a code smell. E.g: What if the response from TopRatedMoviesResponse is sligthly different? Then I need to create a union type to add-on the new fields).
 
   - > But there's one thing that's bugging me: Should I add the codegen to my .gitignore?

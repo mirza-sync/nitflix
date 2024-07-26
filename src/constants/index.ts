@@ -1,5 +1,5 @@
 // Retrieved from genreMovieList endpoint
-enum GENRE {
+export enum GENRE {
   Action = 28,
   Adventure = 12,
   Animation = 16,
@@ -22,3 +22,23 @@ enum GENRE {
 }
 
 export const TMDB_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original";
+
+export type Movie = {
+  adult?: boolean;
+  backdrop_path?: string;
+  id?: number;
+  title?: string;
+  original_language?: string;
+  original_title?: string;
+  overview?: string;
+  poster_path?: string;
+  media_type?: string;
+  genre_ids?: Array<number>;
+  popularity?: number;
+  release_date?: string;
+  video?: boolean;
+  vote_average?: number;
+  vote_count?: number;
+  name?: string;
+  original_name?: string;
+};
