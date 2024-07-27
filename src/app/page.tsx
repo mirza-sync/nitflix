@@ -5,7 +5,6 @@ import { AxiosError } from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TrendingAllResponse, trendingAll } from "../../api-codegen";
-import { axiosClient } from "@/lib/axios";
 import { TMDB_IMAGE_BASE_URL } from "@/constants";
 
 type Movie = NonNullable<TrendingAllResponse["results"]>[number] & {
@@ -24,7 +23,6 @@ export default function Home() {
     queryFn: async () => {
       try {
         const res = await trendingAll({
-          client: axiosClient,
           path: {
             time_window: "day",
           },

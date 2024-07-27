@@ -17,7 +17,7 @@ A Netflix clone made with Next.js.
   - The docs explains how to set it up, but it's too generic. I don't really understand how to fit it in the context of my project. Luckily they provide an example in StackBlitz and I managed to get things working.
   - I created hey-api axios client globally, but the base URL still points to `localhost:3000` instead of `https://api.themoviedb.org`. Hence need to pass the client to every place that invoke the api call. Need to create a custom hook for my react-query to automatically include the axios client. Also planning to standardize error handling inside the hook too.
   - Btw, since hey-api's axios client still in beta, the error response was `unknown` instead of `AxiosError` type. Still need to do `if (error instanceof AxiosError)` for error handling. What a bummer.
-  - The response from `trendingAll` endpoint was `TrendingAllResponse`, which contains `results: Array<object_fields>`. The object doesn't abstracted to type `Movie`. I want to select one random movie from the response and put it in a state. So what's type of my state should be? I asked ChatGPT and it suggested to abstract it to type `Movie` myself. But I don't want to do that. Then it suggested me this: `TrendingAllResponse["results"][number]`. But I got TS error that says "results may be undefined". Then it suggest me this:
+  - The response from `trendingAll` endpoint was `TrendingAllResponse`, which contains `results: Array<object_fields>`. The object doesn't abstracted to type `Movie`. I want to select one random movie from the response and put it in a state. So what's type of my state should be? I asked ChatGPT and it suggested to abstract it to type `Movie` myself. But I don't want to do that. Then it suggested me this: `TrendingAllResponse["results"][number]`. But I got TS error that says `'results' may be undefined`. Then it suggest me this:
 
   - ```
     // Using type assertion
@@ -30,3 +30,5 @@ A Netflix clone made with Next.js.
     - ☝️ I was mind-blown. Didn't know TS can do this! (But in the end I still created the `Movie` type myself because exporting the `TrendingAllResponse` to other components that have nothing to do with `TrendingAllResponse` sounds like a code smell. E.g: What if the response from TopRatedMoviesResponse is sligthly different? Then I need to create a union type to add-on the new fields).
 
   - > But there's one thing that's bugging me: Should I add the codegen to my .gitignore?
+
+  - I just realized that `hey-api/openapi-ts` is client component. No wonder my `@hey-api/client-axios` doesn't work when I instantiate it in my root layout (since the layout only runs on server by default). So I just put it in `ReactQueryProvider` since it's already have `use client` on top and I'm too lazy to create another wrapper.
