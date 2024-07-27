@@ -21,20 +21,12 @@ export default function Home() {
   } = useQuery({
     queryKey: ["trending-all", "day"],
     queryFn: async () => {
-      try {
-        const res = await trendingAll({
-          path: {
-            time_window: "day",
-          },
-        });
-        return res.data;
-      } catch (error) {
-        if (error instanceof AxiosError) {
-          throw new Error(error.message);
-        } else {
-          throw new Error("Unknown error");
-        }
-      }
+      const res = await trendingAll({
+        path: {
+          time_window: "day",
+        },
+      });
+      return res.data;
     },
   });
   const [randomMovie, setRandomMovie] = useState<Movie | null>(null);
