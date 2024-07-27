@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
@@ -9,13 +8,9 @@ import {
   discoverMovie,
   trendingAll,
 } from "../../api-codegen";
-import { GENRE, TMDB_IMAGE_BASE_URL } from "@/constants";
+import { GENRE, Movie, TMDB_IMAGE_BASE_URL } from "@/constants";
 import MovieSlider from "@/components/MovieSlider";
-
-type Movie = NonNullable<TrendingAllResponse["results"]>[number] & {
-  name?: string;
-  original_name?: string;
-};
+import { getMovieTitle } from "@/lib/utils";
 
 type GenreMovies = {
   genreId: number;
@@ -102,10 +97,7 @@ export default function Home() {
           />
           <div className="absolute bottom-0 left-0 flex w-1/2 flex-col p-12 text-white">
             <h1 className="text-4xl font-bold text-white">
-              {randomMovie.title ||
-                randomMovie.original_title ||
-                randomMovie.name ||
-                randomMovie.original_name}
+              {getMovieTitle(randomMovie)}
             </h1>
             <p>{randomMovie.overview}</p>
           </div>

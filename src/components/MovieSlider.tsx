@@ -1,15 +1,10 @@
 import { Movie, TMDB_IMAGE_BASE_URL } from "@/constants";
+import { getMovieTitle } from "@/lib/utils";
 import Image from "next/image";
 
 type MovieSliderProps = {
   genreTitle: string;
   movies: Movie[];
-};
-
-const getMovieTitle = (movie: Movie) => {
-  return (
-    movie.title || movie.original_title || movie.name || movie.original_name
-  );
 };
 
 const MovieSlider = ({ genreTitle, movies }: MovieSliderProps) => {
