@@ -1,4 +1,4 @@
-export const TMDB_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original";
+export const TMDB_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original/";
 
 // Retrieved from genreMovieList endpoint
 export const GENRE = {
