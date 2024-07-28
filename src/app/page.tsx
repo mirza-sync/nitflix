@@ -11,6 +11,7 @@ import {
 import { GENRE, Movie, TMDB_IMAGE_BASE_URL } from "@/constants";
 import MovieSlider from "@/components/MovieSlider";
 import { getMovieTitle } from "@/lib/utils";
+import MovieCategories from "@/components/MovieCategories";
 
 type GenreMovies = {
   genreId: number;
@@ -54,31 +55,6 @@ export default function Home() {
       console.log("randomMovie", movie.results[randomNumber]);
       setRandomMovie(movie?.results[randomNumber]);
     }
-
-    const fetchMovies = async () => {
-      const moviesByGenrePromises = genreList.map(async (genre) => {
-        return discoverMovie({
-          query: {
-            with_genres: genre.id.toString(),
-          },
-        });
-      });
-
-      const moviesByGenre = await Promise.allSettled(moviesByGenrePromises);
-      console.log("moviesByGenre", moviesByGenre);
-
-      const genreMovies = moviesByGenre.map((movies, index) => {
-        return {
-          genreId: genreList[index].id,
-          genreTitle: genreList[index].name,
-          movies: (movies as any).value.data.results,
-        } as GenreMovies;
-      });
-
-      setGenreMovies(genreMovies);
-    };
-
-    fetchMovies();
   }, [movie]);
 
   if (isLoading) return <h1>Loading...</h1>;
@@ -106,16 +82,7 @@ export default function Home() {
         <p>Movie not found!</p>
       )}
 
-      {genreMovies.length > 0 &&
-        genreMovies.map((genreMovie) => {
-          return (
-            <MovieSlider
-              key={genreMovie.genreId}
-              genreTitle={genreMovie.genreTitle}
-              movies={genreMovie.movies}
-            />
-          );
-        })}
+      <MovieCategories />
     </>
   );
 }
