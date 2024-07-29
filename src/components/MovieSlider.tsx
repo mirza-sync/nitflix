@@ -22,10 +22,10 @@ const MovieSlider = ({ genreTitle, movies }: MovieSliderProps) => {
                   (movie.poster_path || movie.backdrop_path)?.substring(1)
                 }
                 alt={`Poster for ${getMovieTitle(movie)}`}
-                width={300}
-                height={200}
-                className="w-auto object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                width={0}
+                height={0}
+                className="h-full w-auto object-cover"
+                sizes="100vw"
               />
             ),
         )}
