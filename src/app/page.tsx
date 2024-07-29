@@ -35,6 +35,7 @@ export default function Home() {
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["trending-all", "day"],
     queryFn: async () => {
@@ -52,10 +53,12 @@ export default function Home() {
       const randomNumber = Math.floor(
         Math.random() * movie.results!.length - 1,
       );
-      console.log("randomMovie", movie.results[randomNumber]);
+      console.log("randomMovie", movie.results[randomNumber], randomNumber);
       setRandomMovie(movie?.results[randomNumber]);
+    } else {
+      refetch();
     }
-  }, [movie]);
+  }, [movie, refetch]);
 
   if (isLoading) return <h1>Loading...</h1>;
   if (isError) return <h1>{error.message}</h1>;
