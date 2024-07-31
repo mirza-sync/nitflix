@@ -11,7 +11,7 @@ const MovieSlider = ({ genreTitle, movies }: MovieSliderProps) => {
   return (
     <section className="my-2 py-2">
       <div className="mb-1 text-xl text-white">{genreTitle}</div>
-      <div className="no-scrollbar flex h-[200px] w-full overflow-x-auto">
+      <div className="no-scrollbar flex h-[200px] gap-2 overflow-x-auto">
         {movies.map(
           (movie) =>
             (movie.backdrop_path || movie.poster_path) && (
@@ -22,10 +22,10 @@ const MovieSlider = ({ genreTitle, movies }: MovieSliderProps) => {
                   (movie.poster_path || movie.backdrop_path)?.substring(1)
                 }
                 alt={`Poster for ${getMovieTitle(movie)}`}
-                width={0}
-                height={0}
+                width={1}
+                height={2}
                 className="h-full w-auto object-cover"
-                sizes="100vw"
+                sizes="10vw"
               />
             ),
         )}
