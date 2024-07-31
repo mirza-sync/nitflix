@@ -31,4 +31,19 @@ A Netflix clone made with Next.js.
 
   - > But there's one thing that's bugging me: Should I add the codegen to my .gitignore?
 
-  - I just realized that `hey-api/openapi-ts` is client component. No wonder my `@hey-api/client-axios` doesn't work when I instantiate it in my root layout (since the layout only runs on server by default). So I just put it in `ReactQueryProvider` since it's already have `use client` on top and I'm too lazy to create another wrapper.
+  - I just realized that `hey-api/openapi-ts` was client component. No wonder my `@hey-api/client-axios` doesn't work when I instantiate it in my root layout (since the layout only runs on server by default). So I just put it in `ReactQueryProvider` since it's already have `use client` on top and I'm too lazy to create another wrapper.
+
+- When using Nextjs's `Image` component without the `fill` props, Nextjs will error out and says that `width` and `height` props are required. These props will be used to infer aspect ratio to prevent "layout shifts". So I just put 1:2 since it's a reasonable aspect ratio for posters. But then Nextjs spit out warnings that "... include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio". I obey and put in the CSS. Unfortunately the warning persists. Since I have hundreds of posters rendered, my Console was lagging out. Turns out there was an [unfixable bug](https://github.com/vercel/next.js/issues/56025). Nextjs please fix 😢. Currently need to do this [workaround](https://www.reddit.com/r/nextjs/comments/16yvihk/seriously_why_is_it_so_difficult_to_use_image_and/):
+  ```
+  <Image
+    src={
+      TMDB_IMAGE_BASE_URL +
+      (movie.poster_path || movie.backdrop_path)?.substring(1)
+    }
+    alt={`Poster for ${getMovieTitle(movie)}`}
+    width={1}
+    height={2}
+    className="h-full w-auto object-cover"
+    sizes="10vw"
+  />
+  ```
