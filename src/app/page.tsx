@@ -1,35 +1,15 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import {
-  TrendingAllResponse,
-  discoverMovie,
-  trendingAll,
-} from "../../api-codegen";
-import { GENRE, Movie, TMDB_IMAGE_BASE_URL } from "@/constants";
-import MovieSlider from "@/components/MovieSlider";
-import { getMovieTitle } from "@/lib/utils";
+import { trendingAll } from "../../api-codegen";
+import { Movie } from "@/constants";
 import MovieCategories from "@/components/MovieCategories";
-
-type GenreMovies = {
-  genreId: number;
-  genreTitle: string;
-  movies: Movie[];
-};
-
-const genreList = [
-  GENRE["Action"],
-  GENRE["Horror"],
-  GENRE["ScienceFiction"],
-  GENRE["Comedy"],
-  GENRE["War"],
-];
+import Highlights from "@/components/Highlights";
 
 export default function Home() {
   const [randomMovie, setRandomMovie] = useState<Movie | null>(null);
-  const [genreMovies, setGenreMovies] = useState<GenreMovies[]>([]);
+
   const {
     data: movie,
     isLoading,
@@ -60,24 +40,10 @@ export default function Home() {
 
   return (
     <>
-      {randomMovie ? (
+      {randomMovie && (
         <div className="relative h-[80vh]">
-          <Image
-            src={TMDB_IMAGE_BASE_URL + randomMovie.backdrop_path}
-            alt={"Large movie backdrop"}
-            priority
-            fill
-            className="object-cover"
-          />
-          <div className="absolute bottom-0 left-0 flex w-1/2 flex-col p-12 text-white">
-            <h1 className="text-4xl font-bold text-white">
-              {getMovieTitle(randomMovie)}
-            </h1>
-            <p>{randomMovie.overview}</p>
-          </div>
+          <Highlights movie={randomMovie} />
         </div>
-      ) : (
-        <p>Movie not found!</p>
       )}
 
       <MovieCategories />
