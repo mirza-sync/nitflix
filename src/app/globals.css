@@ -85,3 +85,7 @@ body {
   height: 100%;
   background: black;
 }
+
+.scroll-fade-gradient {
+  mask-image: linear-gradient(to top, black 70%, transparent 80%);
+}
