@@ -18,14 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ReactQueryProvider>
-      <html lang="en">
-        <body className={inter.className}>
+    <html lang="en">
+      <body className={inter.className}>
+        <ReactQueryProvider>
           <Navbar />
           {children}
           <Toaster />
-        </body>
-      </html>
-    </ReactQueryProvider>
+        </ReactQueryProvider>
+      </body>
+    </html>
   );
 }
