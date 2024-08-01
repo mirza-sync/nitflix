@@ -31,26 +31,28 @@ const Highlights = ({ movie }: MovieProps) => {
 
   return (
     <>
-      {isLoading ? (
-        <Image
-          src={TMDB_IMAGE_BASE_URL + movie.backdrop_path}
-          alt={"Large movie backdrop"}
-          priority
-          fill
-          className="object-cover"
-        />
-      ) : (
-        trailer && (
-          <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${trailer?.key}`}
-            playing
-            muted
-            height="100%"
-            width="auto"
+      <div className="relative ml-auto w-2/3">
+        {isLoading ? (
+          <Image
+            src={TMDB_IMAGE_BASE_URL + movie.backdrop_path}
+            alt={"Large movie backdrop"}
+            priority
+            fill
+            className="object-cover"
           />
-        )
-      )}
-      <div className="absolute bottom-0 left-0 flex w-1/2 flex-col p-12 text-white">
+        ) : (
+          trailer && (
+            <ReactPlayer
+              url={`https://www.youtube.com/watch?v=${trailer?.key}`}
+              playing
+              muted
+              height="100%"
+              width="auto"
+            />
+          )
+        )}
+      </div>
+      <div className="absolute top-0 flex h-full w-1/2 flex-col justify-center bg-gradient-to-r from-black from-80% p-12 text-white">
         <h1 className="text-4xl font-bold text-white">
           {getMovieTitle(movie)}
         </h1>

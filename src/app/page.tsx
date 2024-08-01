@@ -39,14 +39,13 @@ export default function Home() {
   if (isError) return <h1>{error.message}</h1>;
 
   return (
-    <>
-      {randomMovie && (
-        <div className="relative h-[80vh]">
-          <Highlights movie={randomMovie} />
-        </div>
-      )}
-
-      <MovieCategories />
-    </>
+    <div className="h-full">
+      <div className="relative flex h-[70%]">
+        {randomMovie && <Highlights movie={randomMovie} />}
+      </div>
+      <div className="no-scrollbar absolute bottom-0 h-[50%] overflow-y-auto bg-gradient-to-t from-black from-70% pt-14">
+        <MovieCategories />
+      </div>
+    </div>
   );
 }
