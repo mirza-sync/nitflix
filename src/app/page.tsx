@@ -43,7 +43,7 @@ export default function Home() {
       <div className="relative flex h-[70%]">
         {randomMovie && <Highlights movie={randomMovie} />}
       </div>
-      <div className="no-scrollbar scroll-fade-gradient absolute bottom-0 h-[50%] overflow-y-auto pt-14">
+      <div className="no-scrollbar scroll-fade-gradient absolute bottom-0 h-[50%] snap-y snap-mandatory overflow-y-auto pt-14">
         <MovieCategories />
       </div>
     </div>
