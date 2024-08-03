@@ -1,4 +1,4 @@
-import { Movie, MovieVideo, TMDB_IMAGE_BASE_URL } from "@/constants";
+import { Movie, TMDB_IMAGE_BASE_URL } from "@/constants";
 import { getMovieTitle } from "@/lib/utils";
 import Image from "next/image";
 import ReactPlayer from "react-player/youtube";

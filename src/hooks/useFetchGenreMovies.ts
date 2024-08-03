@@ -1,5 +1,5 @@
 import { GENRE, Movie } from "@/constants";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import { discoverMovie } from "../../api-codegen/services.gen";
 
 type GenreMovies = {
