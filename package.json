@@ -24,7 +24,8 @@
     "react-player": "^2.16.0",
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.50.0",
