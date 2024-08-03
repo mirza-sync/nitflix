@@ -6,6 +6,7 @@ import { trendingAll } from "../../api-codegen";
 import { Movie } from "@/constants";
 import MovieCategories from "@/components/MovieCategories";
 import Highlights from "@/components/Highlights";
+import { usePreviewStore } from "@/store";
 
 export default function Home() {
   const {
@@ -30,13 +31,15 @@ export default function Home() {
     },
   });
 
+  const preview = usePreviewStore((state) => state.preview);
+
   if (isLoading) return <h1>Loading...</h1>;
   if (isError) return <h1>{error.message}</h1>;
 
   return (
     <div className="h-full">
       <div className="relative flex h-[70%]">
-        {randomMovie && <Highlights movie={randomMovie} />}
+        {randomMovie && <Highlights movie={preview ? preview : randomMovie} />}
       </div>
       <div className="no-scrollbar scroll-fade-gradient absolute bottom-0 h-[50%] snap-y snap-mandatory overflow-y-auto pt-14">
         <MovieCategories />

@@ -1,5 +1,6 @@
 import { Movie, TMDB_IMAGE_BASE_URL } from "@/constants";
 import { getMovieTitle } from "@/lib/utils";
+import { usePreviewStore } from "@/store";
 import Image from "next/image";
 
 type MovieSliderProps = {
@@ -8,6 +9,7 @@ type MovieSliderProps = {
 };
 
 const MovieSlider = ({ genreTitle, movies }: MovieSliderProps) => {
+  const setPreview = usePreviewStore((state) => state.setPreview);
   return (
     <section className="my-2 snap-end snap-always py-2">
       <div className="mb-1 text-xl text-white">{genreTitle}</div>
@@ -24,8 +26,9 @@ const MovieSlider = ({ genreTitle, movies }: MovieSliderProps) => {
                 alt={`Poster for ${getMovieTitle(movie)}`}
                 width={1}
                 height={2}
-                className="h-full w-auto snap-end object-cover"
+                className="h-full w-auto snap-end border-white object-cover hover:border-2"
                 sizes="10vw"
+                onMouseEnter={() => setPreview(movie)}
               />
             ),
         )}
