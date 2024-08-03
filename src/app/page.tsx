@@ -8,10 +8,8 @@ import MovieCategories from "@/components/MovieCategories";
 import Highlights from "@/components/Highlights";
 
 export default function Home() {
-  const [randomMovie, setRandomMovie] = useState<Movie | null>(null);
-
   const {
-    data: movie,
+    data: randomMovie,
     isLoading,
     isError,
     error,
@@ -23,17 +21,14 @@ export default function Home() {
           time_window: "day",
         },
       });
-      return res.data;
+      const trendingMovies = res.data.results;
+      if (trendingMovies) {
+        const randomNumber = Math.floor(Math.random() * trendingMovies.length);
+        console.log("randomMovie", trendingMovies[randomNumber], randomNumber);
+        return trendingMovies[randomNumber];
+      }
     },
   });
-
-  useEffect(() => {
-    if (movie?.results) {
-      const randomNumber = Math.floor(Math.random() * movie.results.length);
-      console.log("randomMovie", movie.results[randomNumber], randomNumber);
-      setRandomMovie(movie?.results[randomNumber]);
-    }
-  }, [movie]);
 
   if (isLoading) return <h1>Loading...</h1>;
   if (isError) return <h1>{error.message}</h1>;
