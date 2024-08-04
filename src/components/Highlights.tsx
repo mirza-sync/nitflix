@@ -4,12 +4,14 @@ import Image from "next/image";
 import ReactPlayer from "react-player/youtube";
 import { movieVideos } from "../../api-codegen";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 type MovieProps = {
   movie: Movie;
 };
 
 const Highlights = ({ movie }: MovieProps) => {
+  const [isPlay, setIsPlay] = useState(false);
   const { data: trailer, isLoading } = useQuery({
     queryKey: ["movie-video", movie.id],
     queryFn: async () => {
@@ -29,18 +31,17 @@ const Highlights = ({ movie }: MovieProps) => {
     },
   });
 
+  useEffect(() => {
+    setIsPlay(false);
+    setTimeout(() => {
+      setIsPlay(true);
+    }, 3000);
+  }, [movie]);
+
   return (
     <>
       <div className="relative ml-auto w-2/3">
-        {isLoading ? (
-          <Image
-            src={TMDB_IMAGE_BASE_URL + movie.backdrop_path}
-            alt={"Large movie backdrop"}
-            priority
-            fill
-            className="object-cover"
-          />
-        ) : (
+        {isPlay ? (
           trailer && (
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${trailer?.key}`}
@@ -48,8 +49,17 @@ const Highlights = ({ movie }: MovieProps) => {
               muted
               height="100%"
               width="auto"
+              onEnded={() => setIsPlay(false)}
             />
           )
+        ) : (
+          <Image
+            src={TMDB_IMAGE_BASE_URL + movie.backdrop_path}
+            alt={"Large movie backdrop"}
+            priority
+            fill
+            className="object-cover"
+          />
         )}
       </div>
       <div className="absolute top-0 flex h-full w-1/2 flex-col justify-center bg-gradient-to-r from-black from-80% p-12 text-white">
