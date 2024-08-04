@@ -26,7 +26,7 @@ const MovieSlider = ({ genreTitle, movies }: MovieSliderProps) => {
                 alt={`Poster for ${getMovieTitle(movie)}`}
                 width={1}
                 height={2}
-                className="h-full w-auto snap-end border-white object-cover hover:border-2"
+                className="h-full w-auto cursor-pointer snap-end object-cover hover:shadow-lg hover:shadow-white"
                 sizes="10vw"
                 onMouseEnter={() => setPreview(movie)}
               />

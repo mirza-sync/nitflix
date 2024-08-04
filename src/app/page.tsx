@@ -7,6 +7,7 @@ import { Movie } from "@/constants";
 import MovieCategories from "@/components/MovieCategories";
 import Highlights from "@/components/Highlights";
 import { usePreviewStore } from "@/store";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
   const {
@@ -38,9 +39,18 @@ export default function Home() {
 
   return (
     <div className="h-full">
-      <div className="relative flex h-[70%]">
-        {randomMovie && <Highlights movie={preview ? preview : randomMovie} />}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={preview?.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+          className="relative flex h-[70%]"
+        >
+          <Highlights movie={preview ? preview : randomMovie!} />
+        </motion.div>
+      </AnimatePresence>
       <div className="no-scrollbar scroll-fade-gradient absolute bottom-0 h-[50%] snap-y snap-mandatory overflow-y-auto pt-14">
         <MovieCategories />
       </div>
