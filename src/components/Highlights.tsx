@@ -46,7 +46,6 @@ const Highlights = ({ movie }: MovieProps) => {
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${trailer?.key}`}
               playing
-              muted
               height="100%"
               width="auto"
               onEnded={() => setIsPlay(false)}
