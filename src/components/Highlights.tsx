@@ -19,6 +19,9 @@ const Highlights = ({ movie }: MovieProps) => {
         path: { movie_id: movie.id! },
       });
       const videos = res.data;
+      if (!videos) {
+        throw new Error("No video found");
+      }
       const foundTrailer = videos.results?.find(
         (video) => video.type?.toUpperCase() == "TRAILER",
       );
@@ -33,10 +36,13 @@ const Highlights = ({ movie }: MovieProps) => {
 
   useEffect(() => {
     setIsPlay(false);
-    setTimeout(() => {
-      setIsPlay(true);
-    }, 3000);
-  }, [movie]);
+    if (trailer) {
+      console.log("Play");
+      setTimeout(() => {
+        setIsPlay(true);
+      }, 3000);
+    }
+  }, [movie, trailer]);
 
   return (
     <>
@@ -57,7 +63,7 @@ const Highlights = ({ movie }: MovieProps) => {
             alt={"Large movie backdrop"}
             priority
             fill
-            className="object-cover"
+            className={`"animate-in object-cover`}
           />
         )}
       </div>
