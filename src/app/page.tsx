@@ -17,7 +17,7 @@ export default function Start() {
   return (
     <div className="flex h-full flex-col items-center justify-center">
       <Image
-        className={`animate-pulse cursor-pointer rounded-xl hover:shadow hover:shadow-white ${isStarting && "animate-spin"}`}
+        className={`-scale-y-100 animate-pulse cursor-pointer rounded-xl hover:shadow hover:shadow-white ${isStarting && "animate-spin"}`}
         src={NetflixLogo}
         alt="Nitflix"
         width={100}
