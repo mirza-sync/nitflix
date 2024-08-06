@@ -2,11 +2,11 @@
 
 > ### Bringing Netflix's Smart TV browsing experience on the web.
 
-Not your typical Netflix clone. Made with Next.js, Typescript, [TMDB API](https://developer.themoviedb.org/reference/intro/getting-started) + [openapi-ts](https://heyapi.vercel.app/), Axios, React Query, TailwindCSS.
+Not your typical Netflix clone. Made with Next.js, Typescript, [TMDB API](https://developer.themoviedb.org/reference/intro/getting-started) + [openapi-ts](https://heyapi.vercel.app/), Axios, React Query, TailwindCSS, Zustand and Framer Motion.
 
 **Check out the [Live Demo!](https://nitflix-six.vercel.app/)**
 
-Status: In progress 🚧
+Status: In Progress 🚧
 
 ## Dev Logs
 
@@ -48,10 +48,16 @@ Status: In progress 🚧
     width={1}
     height={2}
     className="h-full w-auto object-cover"
-    sizes="10vw"
+    sizes="(max-width: 768px) 33vw, 10vw"
   />
   ```
 - By adding the scroll fade blend and snappy scroll, it makes the app looks stunning! This is the Smart TV exprience I'm talking about 😆. Can't wait for the final version.
+
+- Funny story: I wanted to flip the Netflix logo to prevent copyright issue. So I used `rotate-180`. It was this moment that I learnt that the letter "N" will always looks the same no matter you rotate it 180 degree clockwise or counter-clockwise 🤯. So rotate doesn't work. I googled how to "flip image in CSS" and encountered [this article](https://pqina.nl/blog/flipping-images-with-css-and-javascript/). It uses `scale-y` set to -1, which will flip an image due to point reflection.
+
+  - So I used that same flipped logo on the splash screen. The reason for the splash screen is because ["As of Chrome 66, videos must be muted in order to play automatically"](https://www.npmjs.com/package/react-player#autoplay). Hence I need to force user to click something on the website so that video will autoplay without being muted. I've implemented the click, but it loads for a few seconds before navigating to the homepage. So... I need a loading spinner! But since I'm lazy, I'll just use `animate-spin` on the logo so it will spin indefinitely. However, since the logo was flipped, it spins forwards towards the screen instead of spinning like a normal loading spinner 🤣🤣🤣. I looked at it for the for the first time and laughed so hard. It looks stupid, but I'll keep it there. One of the unexpected moments in my CSS journey.
+
+- Tried to make it mobile responsive, but it kinda sucked LOL. I didn't design it mobile-first since my goal was to re-create that gradient-blend-scroll-fade thing when scrolling movies, and unfortunately the scroll fade thing doesn't fit well with mobile screen. Maybe will revamp the mobile UI in the future.
 
 ## References
 
