@@ -5,12 +5,14 @@ import ReactPlayer from "react-player/youtube";
 import { movieVideos } from "../../api-codegen";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { useIsClientMobile } from "@/hooks/useIsClientMobile";
 
 type MovieProps = {
   movie: Movie;
 };
 
 const Highlights = ({ movie }: MovieProps) => {
+  const isMobile = useIsClientMobile();
   const [isPlay, setIsPlay] = useState(false);
   const { data: trailer, isLoading } = useQuery({
     queryKey: ["movie-video", movie.id],
@@ -46,7 +48,7 @@ const Highlights = ({ movie }: MovieProps) => {
 
   return (
     <>
-      <div className="relative ml-auto w-2/3">
+      <div className={`relative ${isMobile ? "w-full" : "ml-auto w-2/3"}`}>
         {isPlay ? (
           trailer && (
             <ReactPlayer
@@ -67,11 +69,13 @@ const Highlights = ({ movie }: MovieProps) => {
           />
         )}
       </div>
-      <div className="absolute top-0 flex h-full w-1/2 flex-col justify-center bg-gradient-to-r from-black from-80% p-12 text-white">
-        <h1 className="text-4xl font-bold text-white">
+      <div
+        className={`absolute top-0 flex h-full flex-col text-white ${isMobile ? "w-full justify-end px-4 pb-20" : "w-1/2 justify-center bg-gradient-to-r from-black from-70% p-12"} `}
+      >
+        <h1 className={`text-4xl font-bold text-white`}>
           {getMovieTitle(movie)}
         </h1>
-        <p>{movie.overview}</p>
+        <p className={`${isMobile ? "line-clamp-3" : ""}`}>{movie.overview}</p>
       </div>
     </>
   );

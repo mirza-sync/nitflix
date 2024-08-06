@@ -27,7 +27,7 @@ const MovieSlider = ({ genreTitle, movies }: MovieSliderProps) => {
                 width={1}
                 height={2}
                 className="h-full w-auto cursor-pointer snap-end object-cover hover:shadow-lg hover:shadow-white"
-                sizes="10vw"
+                sizes="(max-width: 768px) 33vw, 10vw"
                 onMouseEnter={() => setPreview(movie)}
               />
             ),
