@@ -1,7 +1,16 @@
 export const TMDB_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/original/";
 
+type GenreObj = {
+  id: number;
+  name: string;
+};
+
+type GenreCollection = {
+  [key: string]: GenreObj;
+};
+
 // Retrieved from genreMovieList endpoint
-export const GENRE = {
+export const GENRE: GenreCollection = {
   Action: { id: 28, name: "Action" },
   Adventure: { id: 12, name: "Adventure" },
   Animation: { id: 16, name: "Animation" },

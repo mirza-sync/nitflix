@@ -1,8 +1,8 @@
 import { Movie, TMDB_IMAGE_BASE_URL } from "@/constants";
-import { getMovieTitle } from "@/lib/utils";
+import { getMovieTitle, getGenreNameById, randomArr } from "@/lib/utils";
 import Image from "next/image";
 import ReactPlayer from "react-player/youtube";
-import { movieVideos } from "../../api-codegen";
+import { movieReleaseDates, movieVideos } from "../../api-codegen";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useIsClientMobile } from "@/hooks/useIsClientMobile";
@@ -34,6 +34,24 @@ const Highlights = ({ movie }: MovieProps) => {
         return null;
       }
     },
+  });
+
+  const { data: movieRelease } = useQuery({
+    queryKey: ["movie-release", movie.id],
+    queryFn: async () => {
+      const res = await movieReleaseDates({
+        path: {
+          movie_id: movie.id!,
+        },
+      });
+      console.log("Cert", res.data.results);
+      const release = res.data.results
+        ?.map((country) => country.release_dates)
+        .flat()
+        .filter((releases) => releases?.certification);
+      return release;
+    },
+    enabled: !!movie.id,
   });
 
   useEffect(() => {
@@ -72,10 +90,32 @@ const Highlights = ({ movie }: MovieProps) => {
       <div
         className={`absolute top-0 flex h-full flex-col text-white ${isMobile ? "w-full justify-end px-4 pb-20" : "w-1/2 justify-center bg-gradient-to-r from-black from-70% p-12"} `}
       >
-        <h1 className={`text-4xl font-bold text-white`}>
+        <h1 className="text-4xl font-bold text-white">
           {getMovieTitle(movie)}
         </h1>
-        <p className={`${isMobile ? "line-clamp-3" : ""}`}>{movie.overview}</p>
+        {movieRelease && (
+          <div className="flex items-center gap-2">
+            <span className="min-w-6 rounded-lg bg-white px-1 py-0.5 text-center text-sm font-bold text-black">
+              {randomArr(movieRelease)?.certification}
+            </span>
+            <div>{randomArr(movieRelease)?.release_date?.substring(0, 4)}</div>
+          </div>
+        )}
+        <p className={`text-sm ${isMobile ? "line-clamp-3" : ""}`}>
+          {movie.overview}
+        </p>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {movie.genre_ids?.map((id) => {
+            const genreName = getGenreNameById(id);
+            return (
+              genreName && (
+                <div key={id} className="rounded-lg border px-2 py-0.5 text-sm">
+                  {genreName}
+                </div>
+              )
+            );
+          })}
+        </div>
       </div>
     </>
   );
