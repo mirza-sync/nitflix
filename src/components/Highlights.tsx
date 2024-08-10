@@ -52,6 +52,8 @@ const Highlights = ({ movie }: MovieProps) => {
       return release;
     },
     enabled: !!movie.id,
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
 
   useEffect(() => {
@@ -94,11 +96,13 @@ const Highlights = ({ movie }: MovieProps) => {
           {getMovieTitle(movie)}
         </h1>
         {movieRelease && (
-          <div className="flex items-center gap-2">
-            <span className="min-w-6 rounded-lg bg-white px-1 py-0.5 text-center text-sm font-bold text-black">
+          <div className="flex items-center gap-2 py-1">
+            <span className="min-w-6 rounded bg-white px-1 py-0.5 text-center text-xs font-bold text-black">
               {randomArr(movieRelease)?.certification}
             </span>
-            <div>{randomArr(movieRelease)?.release_date?.substring(0, 4)}</div>
+            <div className="text-sm">
+              {randomArr(movieRelease)?.release_date?.substring(0, 4)}
+            </div>
           </div>
         )}
         <p className={`text-sm ${isMobile ? "line-clamp-3" : ""}`}>
@@ -109,7 +113,7 @@ const Highlights = ({ movie }: MovieProps) => {
             const genreName = getGenreNameById(id);
             return (
               genreName && (
-                <div key={id} className="rounded-lg border px-2 py-0.5 text-sm">
+                <div key={id} className="rounded-lg border px-2 py-0.5 text-xs">
                   {genreName}
                 </div>
               )
