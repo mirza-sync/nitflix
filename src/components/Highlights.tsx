@@ -45,15 +45,14 @@ const Highlights = ({ movie }: MovieProps) => {
         },
       });
       console.log("Cert", res.data.results);
-      const release = res.data.results
+      const releases = res.data.results
         ?.map((country) => country.release_dates)
         .flat()
         .filter((releases) => releases?.certification);
-      return release;
+      return randomArr(releases);
     },
     enabled: !!movie.id,
     staleTime: Infinity,
-    gcTime: Infinity,
   });
 
   useEffect(() => {
@@ -98,10 +97,10 @@ const Highlights = ({ movie }: MovieProps) => {
         {movieRelease && (
           <div className="flex items-center gap-2 py-1">
             <span className="min-w-6 rounded bg-white px-1 py-0.5 text-center text-xs font-bold text-black">
-              {randomArr(movieRelease)?.certification}
+              {movieRelease?.certification}
             </span>
             <div className="text-sm">
-              {randomArr(movieRelease)?.release_date?.substring(0, 4)}
+              {movieRelease?.release_date?.substring(0, 4)}
             </div>
           </div>
         )}
