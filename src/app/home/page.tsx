@@ -6,6 +6,7 @@ import Highlights from "@/components/Highlights";
 import { usePreviewStore } from "@/store";
 import { AnimatePresence, motion } from "framer-motion";
 import { trendingAll } from "../../../api-codegen";
+import { getRandomArr } from "@/lib/utils";
 
 export default function Home() {
   const {
@@ -23,9 +24,7 @@ export default function Home() {
       });
       const trendingMovies = res.data.results;
       if (trendingMovies) {
-        const randomNumber = Math.floor(Math.random() * trendingMovies.length);
-        console.log("randomMovie", trendingMovies[randomNumber], randomNumber);
-        return trendingMovies[randomNumber];
+        return getRandomArr(trendingMovies);
       }
     },
   });

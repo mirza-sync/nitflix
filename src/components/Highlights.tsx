@@ -1,5 +1,5 @@
 import { Movie, TMDB_IMAGE_BASE_URL } from "@/constants";
-import { getMovieTitle, getGenreNameById, randomArr } from "@/lib/utils";
+import { getMovieTitle, getGenreNameById, getRandomArr } from "@/lib/utils";
 import Image from "next/image";
 import ReactPlayer from "react-player/youtube";
 import { movieReleaseDates, movieVideos } from "../../api-codegen";
@@ -49,7 +49,7 @@ const Highlights = ({ movie }: MovieProps) => {
         ?.map((country) => country.release_dates)
         .flat()
         .filter((releases) => releases?.certification);
-      return randomArr(releases);
+      return getRandomArr(releases);
     },
     enabled: !!movie.id,
     staleTime: Infinity,

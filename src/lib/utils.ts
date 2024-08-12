@@ -16,6 +16,7 @@ export const getGenreNameById = (genreId: number) => {
   return Object.values(GENRE).find((genre) => genre.id === genreId)?.name;
 };
 
-export const randomArr = <T>(array: T[]) => {
+export const getRandomArr = <T>(array: T[] | undefined) => {
+  if (!array) return null;
   return array[Math.floor(Math.random() * array.length)];
 };
