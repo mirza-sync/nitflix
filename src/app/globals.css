@@ -89,3 +89,14 @@ body {
 .scroll-fade-gradient {
   mask-image: linear-gradient(to top, black 70%, transparent 80%);
 }
+
+.snap-container {
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  /* scroll-padding-top: 10px; */
+}
+
+.snap-child {
+  scroll-snap-align: start;
+  scroll-margin-top: 70px;
+}

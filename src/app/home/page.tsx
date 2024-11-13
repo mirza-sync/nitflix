@@ -35,7 +35,7 @@ export default function Home() {
   if (isError) return <h1>{error.message}</h1>;
 
   return (
-    <div className="h-full">
+    <div className="relative h-full">
       <AnimatePresence mode="wait">
         <motion.div
           key={preview?.id}
@@ -48,7 +48,7 @@ export default function Home() {
           <Highlights movie={preview ? preview : randomMovie!} />
         </motion.div>
       </AnimatePresence>
-      <div className="no-scrollbar scroll-fade-gradient absolute bottom-0 h-[50%] snap-y snap-mandatory overflow-y-auto pt-14">
+      <div className="no-scrollbar scroll-fade-gradient absolute bottom-0 h-[50%] overflow-y-auto pt-14">
         <MovieCategories />
       </div>
     </div>
